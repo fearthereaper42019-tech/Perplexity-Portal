@@ -1,0 +1,8 @@
+{
+  "name": "Perplexity Proxy",
+  "description": "A sophisticated web proxy and gaming portal featuring Ultraviolet integration, AI assistant, and a collection of web apps with a sleek purple-on-black neon aesthetic.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
