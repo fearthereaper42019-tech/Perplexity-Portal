@@ -1,20 +1,19 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Perplexity Proxy Deployment Guide
 
-# Run and deploy your AI Studio app
+## Netlify Deployment
+1. **Push to GitHub**: Upload all files to a new repository.
+2. **Connect to Netlify**: Select "Import from Git" in Netlify.
+3. **Configure Build**:
+   - **Command**: `npm run build`
+   - **Directory**: `dist`
+4. **Set Environment Variables**:
+   - Navigate to Site Settings -> Environment Variables.
+   - Add `API_KEY`: [Your Gemini API Key]
+5. **Ultraviolet Backend**:
+   - If your UV worker is hosted elsewhere, update `netlify.toml` redirects to point to your UV server.
 
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/drive/1dYiBt_p8Wq7FcrCKTZsJTno6zlzBNXmG
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Features
+- **Ultraviolet Integration**: Secure web proxying via XOR encoding.
+- **AI Assistant**: Powered by Gemini 3 Flash.
+- **Stealth Mode**: Tab cloaking and About:Blank portal support.
+- **Guardian Detection**: Real-time monitoring of classroom filters.

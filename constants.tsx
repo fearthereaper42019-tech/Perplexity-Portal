@@ -23,6 +23,12 @@ export const QUICK_APPS: AppInfo[] = [
     icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABvUExURVdl8v///1Zl8lZk8VZk8e7w/fj4/ldk8lZk8VZk8lZk8VZl8ldk8lZk8VZk8aSr+LrA+WJu8rG3+GZy84SO9a20+MXK+ldk8pOc9ldk8d7h/HaB9Gt38+Tm/Fdl8Vdl8lZl8VUA9gBl/0dwTEdwTCQujVkAAAAldFJOU///J+z7///2zdQQCo6cXP//////////Mv+e/////56envv/AAADM8XgAAABK0lEQVQ4y4VT2baDIAwMKIoriktdansf+v/feMFE0VoP86BhHIHJAp8daVnIIAwDWZSpY2EL+CuGHfGbfwmyPIQTwjw7CngCFyTcCR4B/EDw2AT853ej4CjIErhBkq2CHG6RWwF3969r90Qv3AhGWjRqYn07DG3PJtUQ+feBlPLTCHaAIEWcQknaip1QEV1CgcEzOguiJ/IFSAw0+4JGXgIlab2BWLeJMKZkAZqc8ad6YWypcbsZjZJgsJQ5tmOsMxeyq4EEeERnqRagZ6wHaO2qoyOkMynU+qqUcEYl2azYBRXZLPcjop5ygUFHiaJUK8Mtc6u0Vu1svERqS/VWrEaLaSviJDTV4nUq917m5lRub8P4W87btP629w+Of/TsJuNxeEd+me678f8HQVYjIhOHP3oAAAAASUVORK5CYII=',
     iconClass: 'scale-[1.0]'
   },
+   { 
+    name: 'PubG', 
+    url: 'https://now.gg/play/proxima-beta/2609/pubg-mobile-resistance', 
+    icon: 'https://cdn.now.gg/apps-content/com.tencent.ig/icon/pubg-mobile-resistance.png',
+    iconClass: 'scale-[1.0]'
+  },
   { 
     name: 'Roblox', 
     url: 'https://now.gg/play/roblox-corporation/5349/roblox', 
@@ -39,6 +45,8 @@ export const QUICK_APPS: AppInfo[] = [
     icon: 'https://www.pngmart.com/files/23/Movie-Icon-PNG-HD.png',
     iconClass: 'scale-[0.7] brightness-0 invert' 
   }
+  
+  
 ];
 
 export const GAMES: GameInfo[] = [
@@ -68,6 +76,6 @@ export const GAMES: GameInfo[] = [
     name: 'Among Us',
     description: 'Survival and social deduction.',
     thumbnail: 'https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg',
-    url: 'https://discord.com'
+    url: 'https://now.gg/play/innersloth-llc/4047/among-us'
   }
 ];

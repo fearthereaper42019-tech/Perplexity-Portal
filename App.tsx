@@ -33,6 +33,12 @@ const App: React.FC = () => {
     return saved ? JSON.parse(saved) : [];
   });
   
+  // Proxy Engine State
+  const [proxyBackend, setProxyBackend] = useState(() => localStorage.getItem('perplexity_proxy_backend') || 'ultraviolet');
+
+  // Stealth State (Cloaking)
+  const [cloakType, setCloakType] = useState(() => localStorage.getItem('perplexity_cloak_type') || 'none');
+
   // Panic State
   const [panicKey, setPanicKey] = useState(() => localStorage.getItem('perplexity_panic_key') || '');
   const [panicAction, setPanicAction] = useState<'abort' | 'redirect'>(() => 
@@ -54,6 +60,38 @@ const App: React.FC = () => {
     const saved = localStorage.getItem('perplexity_custom_apps');
     return saved ? JSON.parse(saved) : [];
   });
+
+  // Cloaking Logic Application
+  useEffect(() => {
+    const favicon = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    localStorage.setItem('perplexity_cloak_type', cloakType);
+
+    switch (cloakType) {
+      case 'google':
+        document.title = 'Google';
+        if (favicon) favicon.href = 'https://www.google.com/favicon.ico';
+        break;
+      case 'drive':
+        document.title = 'My Drive - Google Drive';
+        if (favicon) favicon.href = 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico';
+        break;
+      case 'canvas':
+        document.title = 'Dashboard';
+        if (favicon) favicon.href = 'https://du11hjcvx0uqb.cloudfront.net/br/dist/images/favicon-e1067b0c11.ico';
+        break;
+      case 'powerschool':
+        document.title = 'PowerSchool';
+        if (favicon) favicon.href = 'https://www.powerschool.com/favicon.ico';
+        break;
+      case 'clever':
+        document.title = 'Clever | Portal';
+        if (favicon) favicon.href = 'https://clever.com/favicon.ico';
+        break;
+      default:
+        document.title = 'Perplexity Proxy';
+        if (favicon) favicon.href = '/favicon.ico'; 
+    }
+  }, [cloakType]);
 
   // Global Panic Listener
   useEffect(() => {
@@ -85,7 +123,6 @@ const App: React.FC = () => {
 
     const scanEnvironment = async () => {
       let suspicious = false;
-      
       const extensionIds = [
         'haldlgldplgnggkjaoolnadoibebeacu',
         'nmofcdhdgeifgbbagihonffonjkjclio',
@@ -129,7 +166,8 @@ const App: React.FC = () => {
     localStorage.setItem('perplexity_panic_action', panicAction);
     localStorage.setItem('perplexity_guardian_alert', guardianAlertEnabled.toString());
     localStorage.setItem('perplexity_guardian_sensitivity', guardianSensitivity);
-  }, [customApps, customBackgrounds, panicKey, panicAction, guardianAlertEnabled, guardianSensitivity]);
+    localStorage.setItem('perplexity_proxy_backend', proxyBackend);
+  }, [customApps, customBackgrounds, panicKey, panicAction, guardianAlertEnabled, guardianSensitivity, proxyBackend]);
 
   useEffect(() => {
     localStorage.setItem('perplexity_accent_color', accentColor);
@@ -168,6 +206,7 @@ const App: React.FC = () => {
             onAddApp={addApp} 
             activeUrl={activeProxyUrl}
             onNavigate={setActiveProxyUrl}
+            proxyBackend={proxyBackend}
           />
         );
       case TabType.GAMES:
@@ -189,6 +228,8 @@ const App: React.FC = () => {
             setBgImage={setBgImage}
             customBackgrounds={customBackgrounds}
             setCustomBackgrounds={setCustomBackgrounds}
+            cloakType={cloakType}
+            setCloakType={setCloakType}
             panicKey={panicKey}
             setPanicKey={setPanicKey}
             panicAction={panicAction}
@@ -198,10 +239,13 @@ const App: React.FC = () => {
             guardianSensitivity={guardianSensitivity}
             setGuardianSensitivity={setGuardianSensitivity}
             triggerAlertManual={() => setIsGuardianDetected(true)}
+            executePanicManual={executePanic}
+            proxyBackend={proxyBackend}
+            setProxyBackend={setProxyBackend}
           />
         );
       default:
-        return <ProxyTab customApps={customApps} onAddApp={addApp} activeUrl={activeProxyUrl} onNavigate={setActiveProxyUrl} />;
+        return <ProxyTab customApps={customApps} onAddApp={addApp} activeUrl={activeProxyUrl} onNavigate={setActiveProxyUrl} proxyBackend={proxyBackend} />;
     }
   };
 
