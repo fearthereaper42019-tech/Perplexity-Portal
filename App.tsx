@@ -35,6 +35,7 @@ const App: React.FC = () => {
   
   // Proxy Engine State
   const [proxyBackend, setProxyBackend] = useState(() => localStorage.getItem('perplexity_proxy_backend') || 'ultraviolet');
+  const [proxyBaseUrl, setProxyBaseUrl] = useState(() => localStorage.getItem('perplexity_proxy_base_url') || window.location.origin);
 
   // Stealth State (Cloaking)
   const [cloakType, setCloakType] = useState(() => localStorage.getItem('perplexity_cloak_type') || 'none');
@@ -167,7 +168,8 @@ const App: React.FC = () => {
     localStorage.setItem('perplexity_guardian_alert', guardianAlertEnabled.toString());
     localStorage.setItem('perplexity_guardian_sensitivity', guardianSensitivity);
     localStorage.setItem('perplexity_proxy_backend', proxyBackend);
-  }, [customApps, customBackgrounds, panicKey, panicAction, guardianAlertEnabled, guardianSensitivity, proxyBackend]);
+    localStorage.setItem('perplexity_proxy_base_url', proxyBaseUrl);
+  }, [customApps, customBackgrounds, panicKey, panicAction, guardianAlertEnabled, guardianSensitivity, proxyBackend, proxyBaseUrl]);
 
   useEffect(() => {
     localStorage.setItem('perplexity_accent_color', accentColor);
@@ -207,6 +209,7 @@ const App: React.FC = () => {
             activeUrl={activeProxyUrl}
             onNavigate={setActiveProxyUrl}
             proxyBackend={proxyBackend}
+            proxyBaseUrl={proxyBaseUrl}
           />
         );
       case TabType.GAMES:
@@ -242,10 +245,12 @@ const App: React.FC = () => {
             executePanicManual={executePanic}
             proxyBackend={proxyBackend}
             setProxyBackend={setProxyBackend}
+            proxyBaseUrl={proxyBaseUrl}
+            setProxyBaseUrl={setProxyBaseUrl}
           />
         );
       default:
-        return <ProxyTab customApps={customApps} onAddApp={addApp} activeUrl={activeProxyUrl} onNavigate={setActiveProxyUrl} proxyBackend={proxyBackend} />;
+        return <ProxyTab customApps={customApps} onAddApp={addApp} activeUrl={activeProxyUrl} onNavigate={setActiveProxyUrl} proxyBackend={proxyBackend} proxyBaseUrl={proxyBaseUrl} />;
     }
   };
 

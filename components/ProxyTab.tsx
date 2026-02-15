@@ -8,9 +8,10 @@ interface ProxyTabProps {
   activeUrl: string;
   onNavigate: (url: string) => void;
   proxyBackend: string;
+  proxyBaseUrl: string;
 }
 
-const ProxyTab: React.FC<ProxyTabProps> = ({ customApps, onAddApp, activeUrl, onNavigate, proxyBackend }) => {
+const ProxyTab: React.FC<ProxyTabProps> = ({ customApps, onAddApp, activeUrl, onNavigate, proxyBackend, proxyBaseUrl }) => {
   const [url, setUrl] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [newName, setNewName] = useState('');
@@ -44,14 +45,17 @@ const ProxyTab: React.FC<ProxyTabProps> = ({ customApps, onAddApp, activeUrl, on
       }
     }
     
+    // Normalize Base URL (remove trailing slash)
+    const normalizedBase = proxyBaseUrl.endsWith('/') ? proxyBaseUrl.slice(0, -1) : proxyBaseUrl;
+
     // Engine specific routing
     if (proxyBackend === 'ultraviolet') {
-      return `/service/${encodeUrl(processed)}`;
+      return `${normalizedBase}/service/${encodeUrl(processed)}`;
     } else if (proxyBackend === 'womginx') {
       return `https://womginx.perplexity.io/main/${processed}`;
     }
     
-    return `/service/${encodeUrl(processed)}`;
+    return `${normalizedBase}/service/${encodeUrl(processed)}`;
   };
 
   const handleSearch = (e: React.FormEvent) => {

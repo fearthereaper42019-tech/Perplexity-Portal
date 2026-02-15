@@ -28,6 +28,8 @@ interface SettingsTabProps {
   executePanicManual: () => void;
   proxyBackend: string;
   setProxyBackend: (val: string) => void;
+  proxyBaseUrl: string;
+  setProxyBaseUrl: (val: string) => void;
 }
 
 const SettingsTab: React.FC<SettingsTabProps> = ({
@@ -56,7 +58,9 @@ const SettingsTab: React.FC<SettingsTabProps> = ({
   triggerAlertManual,
   executePanicManual,
   proxyBackend,
-  setProxyBackend
+  setProxyBackend,
+  proxyBaseUrl,
+  setProxyBaseUrl
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isBgModalOpen, setIsBgModalOpen] = useState(false);
@@ -188,11 +192,12 @@ const SettingsTab: React.FC<SettingsTabProps> = ({
           </div>
         </section>
 
-        {/* Proxy Backend Selection */}
+        {/* Proxy Backend Selection & Configuration */}
         <section className="glass rounded-[2.5rem] p-10 border border-accent/10 space-y-8 md:col-span-2">
           <div className="pb-4 border-b border-accent/10">
             <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">Network Architecture</h3>
           </div>
+          
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
               { id: 'ultraviolet', label: 'Ultraviolet', desc: 'Secure XOR Encryption (Recommended)' },
@@ -208,6 +213,30 @@ const SettingsTab: React.FC<SettingsTabProps> = ({
                 <span className="text-[9px] text-gray-600 font-black uppercase tracking-tighter leading-none">{engine.desc}</span>
               </button>
             ))}
+          </div>
+
+          <div className="pt-6 space-y-4">
+            <div className="flex flex-col gap-3">
+              <label className="text-[9px] font-black uppercase tracking-widest text-gray-600 ml-2">Ultraviolet Backend URL</label>
+              <div className="flex gap-2">
+                <input 
+                  type="text" 
+                  value={proxyBaseUrl}
+                  onChange={(e) => setProxyBaseUrl(e.target.value)}
+                  placeholder="https://your-uv-backend.com"
+                  className="flex-1 bg-black/40 border border-accent/20 rounded-full py-4 px-6 text-white placeholder-gray-800 focus:outline-none focus:border-accent transition-all text-xs font-black tracking-widest"
+                />
+                <button 
+                  onClick={() => setProxyBaseUrl(window.location.origin)}
+                  className="bg-black/40 border border-accent/20 text-accent px-6 py-4 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-accent/10"
+                >
+                  RESET
+                </button>
+              </div>
+              <p className="text-[8px] text-gray-700 font-black uppercase tracking-widest ml-4">
+                NOTE: Relative paths like "/service/" will fail on Static Hosts (Netlify/Vercel). Point this to a real UV instance to fix redirect loops.
+              </p>
+            </div>
           </div>
         </section>
 
